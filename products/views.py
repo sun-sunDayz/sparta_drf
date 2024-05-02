@@ -7,14 +7,10 @@ from rest_framework import status, generics
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 # Create your views here.
 
-class ProductListCreateView(APIView):
-
+class ProductListCreateView(generics.ListAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
-
-    def get(self, request):
-        products = Product.objects.all()
-        serializer = ProductSerializer(products, many=True)
-        return Response(serializer.data)
 
     def post(self, request):
         serializer = ProductSerializer(data=request.data)

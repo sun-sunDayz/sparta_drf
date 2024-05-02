@@ -13,7 +13,9 @@ class ProductListCreateView(generics.ListAPIView):
     permission_classes = [IsAuthenticatedOrReadOnly]
 
     def post(self, request):
-        serializer = ProductSerializer(data=request.data)
+        data = request.data.copy()
+        data["user"] = request.user.id
+        serializer = ProductSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)

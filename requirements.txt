@@ -1,0 +1,6 @@
+djangorestframework-simplejwt
+djangorestframework
+pasycopg2
+django-seed
+pillow
+django
